@@ -20,12 +20,12 @@ public class UploadService {
         int statusCode = 0;
 
         OkHttpClient client = new OkHttpClient.Builder().connectTimeout(10000, TimeUnit.MICROSECONDS).build();
-
+        String subimgurl = String.valueOf(imgUrls).substring(1, String.valueOf(imgUrls).length() - 1);
         FormBody formBody = new FormBody.Builder()
                 .add("name", username)
                 .add("title", title)
                 .add("content", content)
-                .add("imgs", String.valueOf(imgUrls))
+                .add("imgs", subimgurl)
                 .build();
 
         Request request = new Request.Builder()

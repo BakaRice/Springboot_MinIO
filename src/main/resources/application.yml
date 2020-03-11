@@ -4,12 +4,12 @@ server:
 spring:
   servlet:
     multipart:
-      enabled: true #开启文件上传
-      max-file-size: 10MB #限制文件上传大小为10M
+      enabled: true
+      max-file-size: 10MB
 
-# MinIO对象存储相关配置
+
 minio:
-  endpoint: http://119.3.215.150:9000 #MinIO服务所在地址
-  bucketName: images #存储桶名称
-  accessKey: admin #访问的key
-  secretKey: admin123456 #访问的秘钥
+  endpoint: http://119.3.215.150:9000
+  bucketName: images
+  accessKey: admin
+  secretKey: admin123456

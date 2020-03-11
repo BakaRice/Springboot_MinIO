@@ -121,8 +121,12 @@ public class MinioController {
     public CommonResult upload_info(@RequestParam("files") ArrayList<MultipartFile> files,
                                     @RequestParam String name,
                                     @RequestParam String title,
-                                    @RequestParam String content) {
+                                    @RequestParam String content,
+                                    @RequestParam String width,
+                                    @RequestParam String height
+    ) {
         try {
+
             MinioClient minioClient = new MinioClient(ENDPOINT, ACCESS_KEY, SECRET_KEY);
             boolean isExist = minioClient.bucketExists(BUCKET_NAME);
             if (isExist) {
@@ -137,13 +141,15 @@ public class MinioController {
             ArrayList<String> urls = new ArrayList<>();
             for (MultipartFile file : files
             ) {
-                String filename = UUID.randomUUID() + file.getOriginalFilename();
+//                UUID.randomUUID().toString().replace("-", "").toLowerCase()
+                String filename = height + "_" + width + "_" + file.getOriginalFilename();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 // 设置存储对象名称
                 String objectName = sdf.format(new Date()) + "/" + filename;
                 // 使用putObject上传一个文件到存储桶中
                 minioClient.putObject(BUCKET_NAME, objectName, file.getInputStream(), file.getContentType());
                 LOGGER.info("文件上传成功! user:" + name + " filename:" + filename);
+                LOGGER.info("width:" + width + " height:" + height);
                 filenames.add(filename);
                 urls.add(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
 
